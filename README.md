@@ -24,3 +24,8 @@ Needs Python 3 (built and tested on Python 3.10.12, SQLite 3.37.2).
 - Educational example, no warranty. Use at your own risk.
 - Sample expenses in the walkthrough are made-up entries.
 - Code is MIT licensed (see LICENSE). Python and SQLite are separate projects with their own licenses; this repository does not include them.
+- The commands are for a macOS or Linux terminal (on Windows, use WSL).
+
+## The interactive walkthrough
+
+The commands that build this project, with the real output recorded from a real run, are in the companion practice page: https://faiz12321.github.io/ai-tools-that-work/build-session-03-expense-tracker.html . Nothing in it runs on your device.
