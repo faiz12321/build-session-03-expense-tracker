@@ -28,7 +28,9 @@ def main(argv=None):
             cents = db.to_cents(args.amount)
         except ValueError as err:
             parser.error(str(err))
-        category = args.category.lower()
+        category = args.category.strip().lower()
+        if not category:
+            parser.error("category cannot be empty")
         new_id = db.add(conn, cents, category, args.note)
         print(f"Added #{new_id}: {db.money(cents)} {category}")
     elif args.command == "list":
