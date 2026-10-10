@@ -16,9 +16,10 @@ class DbTests(unittest.TestCase):
         self.assertEqual(db.to_cents("12.50"), 1250)
         self.assertEqual(db.to_cents("0.1"), 10)
         self.assertEqual(db.to_cents("3"), 300)
+        self.assertEqual(db.to_cents("12.345"), 1235)
 
     def test_bad_amounts_are_rejected(self):
-        for bad in ("abc", "-5", "0"):
+        for bad in ("abc", "-5", "0", "nan", "inf", "1e999", "0.001", "99999999999999999999"):
             with self.assertRaises(ValueError):
                 db.to_cents(bad)
 
