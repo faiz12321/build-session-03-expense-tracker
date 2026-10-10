@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import date
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
 
 def connect(path="expenses.db"):
@@ -19,12 +19,19 @@ def connect(path="expenses.db"):
 
 def to_cents(text):
     try:
-        amount = Decimal(text)
+        amount = Decimal(text.strip())
     except InvalidOperation:
+        raise ValueError(f"'{text}' is not a number")
+    if not amount.is_finite():
         raise ValueError(f"'{text}' is not a number")
     if amount <= 0:
         raise ValueError("amount must be more than zero")
-    return int((amount * 100).to_integral_value())
+    if amount > 1000000:
+        raise ValueError("amount is too large (the limit is 1000000)")
+    cents = int((amount * 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
+    if cents == 0:
+        raise ValueError("amount must be at least 0.01")
+    return cents
 
 
 def money(cents):
